@@ -43,7 +43,7 @@ class Event(db.Model):
 	end_date = db.Column(db.DateTime, nullable=False)
 	start_date_subscriptions = db.Column(db.DateTime, nullable=False)
 	end_date_subscriptions = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-	user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+	user_id = db.Column(db.String, db.ForeignKey('users.id'))
 	user = db.relationship('User', foreign_keys=user_id)
 	created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 

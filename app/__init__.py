@@ -21,4 +21,5 @@ lm = LoginManager(app)
 lm.init_app(app)
 
 
+from app.models import tables
 from app.controllers import default
