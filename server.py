@@ -1,5 +1,10 @@
-from app import manager
+import contact
+from app.controllers import default
+from flask import Flask
 
 
-if __name__ == "__main__":
-	manager.run()
+def create_app():
+	app = Flask(__name__)
+	default.configure(app)
+	contact.configure(app)
+	return app

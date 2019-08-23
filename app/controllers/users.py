@@ -1,9 +1,10 @@
+from flask import jsonify
 from app import app, db
 
 @app.route("/users", methods=['GET'])
 def list():
 	instance = User.query.all()
-	return "Listando!!!"
+	return jsonify(data={})
 
 
 @app.route("/users/<int:id>", methods=['POST'])
