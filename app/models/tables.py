@@ -10,7 +10,7 @@ from sqlalchemy.dialects.postgresql import UUID
 class User(db.Model):
 	__tablename__ = "users"
 
-	id = db.Column(db.String(), nullable=False, default=uuid.uuid4().hex)
+	id = db.Column(db.String(), nullable=False, default=uuid.uuid4().hex, primary_key=True)
 	username = db.Column(db.String, unique=True)
 	password = db.Column(db.String)
 	name = db.Column(db.String)
@@ -36,7 +36,7 @@ class Event(db.Model):
 	__tablename__ = "events"		
 
 
-	id = db.Column(db.String(), nullable=False, default=uuid.uuid4().hex)
+	id = db.Column(db.String(), nullable=False, default=uuid.uuid4().hex, primary_key=True)
 	title = db.Column(db.String)
 	description = db.Column(db.Text)
 	start_date = db.Column(db.DateTime, nullable=False)

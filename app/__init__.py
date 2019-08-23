@@ -21,4 +21,4 @@ lm = LoginManager(app)
 lm.init_app(app)
 
 
-from app.controllers import default, users
+from app.controllers import default
