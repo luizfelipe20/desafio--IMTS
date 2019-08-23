@@ -1,9 +1,5 @@
-from app import create_app
+from app import manager
 
-HOST = '0.0.0.0'
-PORT = 5000
 
-app = create_app()
-
-if __name__ == '__main__':    
-    app.run(host=HOST, port=PORT)
+if __name__ == "__main__":
+	manager.run()
