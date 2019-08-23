@@ -19,3 +19,6 @@ manager.add_command('db', MigrateCommand)
 
 lm = LoginManager(app)
 lm.init_app(app)
+
+
+from app.controllers import default, users
