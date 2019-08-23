@@ -1,25 +1,21 @@
 from flask import Flask
-from flask_migrate import Migrate
-from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
+from flask_script import Manager
+from flask_migrate import Migrate, MigrateCommand
+from flask_login import LoginManager
 
-from app.config import BaseConfig
 
-"""
-Instanciando Banco/SQLAlchemy e suas Migrações:
-"""
-migrate = Migrate()
-db = SQLAlchemy()
+app = Flask(__name__)
+app.config.from_object('app.config')
 
-def create_app(*args, **kwargs):
-    flask_app = Flask(__name__)
 
-    # Inicializando o Servidor com o arquivo de configuração:
-    #flask_app.config.from_object(BaseConfig)
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
-    #CORS(flask_app)
 
-    #db.init_app(flask_app)
-    #migrate.init_app(flask_app, db)
-   
-    return flask_app
+manager = Manager(app)
+manager.add_command('db', MigrateCommand)
+
+
+lm = LoginManager(app)
+lm.init_app(app)
