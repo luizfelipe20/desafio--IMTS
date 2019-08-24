@@ -1,6 +1,6 @@
 import contact
 import db
-# import admin
+import admin
 from app.controllers import default
 from flask import Flask
 
@@ -19,8 +19,8 @@ def create_app():
 	default.configure(app)
 	
 
-	# admin.configure(app)
-	
+	# flask admin
+	admin.configure(app)
 
 	#formulario de contato
 	contact.configure(app)

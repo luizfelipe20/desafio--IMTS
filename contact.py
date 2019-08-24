@@ -15,6 +15,9 @@ def contact():
 	if not name or not message:
 		abort(400, "Mensagem inválida")
 
+	#testando banco
+	current_app.db.message.insert_one({'name': name, 'message': message})
+
 	return "OK"
 
 
