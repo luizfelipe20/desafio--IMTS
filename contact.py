@@ -6,7 +6,7 @@ bp = Blueprint("contact", __name__, url_prefix="/contact")
 
 @bp.route("/", methods=['GET', 'POST'])
 def contact():
-	if request.method == "GET"
+	if request.method == "GET":
 		return render_template('contact.html')
 	
 	name = request.form.get("name")
