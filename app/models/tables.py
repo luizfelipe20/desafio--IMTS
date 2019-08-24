@@ -1,10 +1,17 @@
 import uuid
 
-from app import db
+from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime 
 from sqlalchemy.dialects.postgresql import JSON
 from sqlalchemy.dialects.postgresql import UUID
 
+
+db = SQLAlchemy()
+
+
+def configure(app):
+	db.init_app(app)
+	app.db = db
 
 #  nome, username, password, telefone, aniversário e e-mail.
 class User(db.Model):
