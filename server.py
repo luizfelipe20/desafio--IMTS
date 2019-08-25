@@ -7,12 +7,13 @@ from app import serializers as config_ma
 from app.controllers import default
 from app.controllers.users import bp_users
 from flask import Flask
+from flask_jwt_extended import JWTManager
 from flask_migrate import Migrate
 from flask_cors import CORS
 from app import config_database
 
 def create_app():
-	# app = Flask(__name__, template_folder='/foo/bar', static_folder='/foo/bar')
+	# app = Flask(__name__, template_folder='/foo/bancoar', static_folder='/foo/bar')
 	# criacao do app
 	app = Flask(__name__)
 
@@ -31,6 +32,9 @@ def create_app():
 
 	CORS(app)
 
+    
+	JWTManager(app)
+
 
 	#conexao com o banco nosql
 	# db.configure(app)
@@ -42,6 +46,7 @@ def create_app():
 
 	# flask admin
 	# admin.configure(app)
+
 
 	#formulario de contato
 	contact.configure(app)

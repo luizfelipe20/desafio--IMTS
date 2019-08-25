@@ -7,21 +7,21 @@ from app.serializers import UserSchema
 bp_users = Blueprint('Users', __name__)
 
 
-@bp_users.route('/mostrar', methods=['GET'])
+@bp_users.route('/mostrar', methods=['get'])
 # @jwt_required
 def mostrar():
     result = User.query.all()
     return UserSchema(many=True).jsonify(result), 200
 
 
-@bp_users.route('/deletar/<identificador>', methods=['GET'])
+@bp_users.route('/deletar/<identificador>', methods=['delete'])
 def deletar(identificador):
     User.query.filter(User.id == identificador).delete()
     current_app.db.session.commit()
     return jsonify('Deletado!!!!')
 
 
-@bp_users.route('/modificar/<identificador>', methods=['POST'])
+@bp_users.route('/modificar/<identificador>', methods=['update'])
 def modificar(identificador):
     bs = UserSchema()
     query = User.query.filter(User.id == identificador)
@@ -30,7 +30,7 @@ def modificar(identificador):
     return bs.jsonify(query.first())
 
 
-@bp_users.route('/cadastrar', methods=['POST'])
+@bp_users.route('/cadastrar', methods=['post'])
 def cadastrar():
     bs = UserSchema()
     user, error = bs.load(request.json)
