@@ -1,5 +1,5 @@
 from flask import Blueprint, current_app, request, jsonify
-# from flask_jwt_extended import jwt_required
+from flask_jwt_extended import jwt_required
 from app.models.tables import User
 from app.serializers import UserSchema
 
@@ -8,7 +8,7 @@ bp_users = Blueprint('Users', __name__)
 
 
 @bp_users.route('/mostrar', methods=['get'])
-# @jwt_required
+@jwt_required
 def mostrar():
     result = User.query.all()
     return UserSchema(many=True).jsonify(result), 200

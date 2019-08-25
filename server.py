@@ -6,6 +6,7 @@ from app.models import tables as config_db
 from app import serializers as config_ma
 from app.controllers import default
 from app.controllers.users import bp_users
+from app.controllers.login import bp_login
 from flask import Flask
 from flask_jwt_extended import JWTManager
 from flask_migrate import Migrate
@@ -53,4 +54,5 @@ def create_app():
 
 
 	app.register_blueprint(bp_users)
+	app.register_blueprint(bp_login)
 	return app
