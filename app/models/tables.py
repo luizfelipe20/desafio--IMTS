@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime 
 from sqlalchemy.dialects.postgresql import JSON
 from sqlalchemy.dialects.postgresql import UUID
+from passlib.hash import pbkdf2_sha256
 
 
 db = SQLAlchemy()
@@ -19,20 +20,19 @@ class User(db.Model):
 
 	id = db.Column(db.String(), nullable=False, default=uuid.uuid4().hex, primary_key=True)
 	username = db.Column(db.String, unique=True)
-	password = db.Column(db.String)
+	password = db.Column(db.String, nullable=False)
 	name = db.Column(db.String)
 	email = db.Column(db.String, unique=True)
 	phone = db.Column(JSON)
 	birthday = db.Column(db.DateTime, nullable=False)
 	created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
-	def __init__(self, username, password, name, email, phone, birthday):
-		self.username = username
-		self.password = password
-		self.name = name
-		self.email = email
-		self.phone = phone
-		self.birthday = birthday
+	def gen_hash(self):
+        self.password = pbkdf2_sha256.hash(self.password)
+
+    def verify_password(self, password):
+        return pbkdf2_sha256.verify(password, self.password)
+
 
 	def __repr__(self):
 		return "{}".format(self.id, self.username)
@@ -53,11 +53,6 @@ class Event(db.Model):
 	user_id = db.Column(db.String, db.ForeignKey('users.id'))
 	user = db.relationship('User', foreign_keys=user_id)
 	created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-
-	def __init__(self, title, content, user_id):
-		self.title = title
-		self.content = content
-		self.user_id = user_id
 
 	def __repr__(self):
 		return "{}".format(self.id, self.title, self.user)
