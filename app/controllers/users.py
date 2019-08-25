@@ -4,25 +4,25 @@ from app.models.tables import User
 from app.serializers import UserSchema
 
 
-bp_users = Blueprint('Users', __name__)
+bp_users = Blueprint('Users', __name__, url_prefix="/user")
 
 
-@bp_users.route('/mostrar', methods=['get'])
+@bp_users.route('/', methods=['get'])
 @jwt_required
-def mostrar():
+def list():
     result = User.query.all()
     return UserSchema(many=True).jsonify(result), 200
 
 
-@bp_users.route('/deletar/<identificador>', methods=['delete'])
-def deletar(identificador):
+@bp_users.route('/<int:id>', methods=['delete'])
+def delete(identificador):
     User.query.filter(User.id == identificador).delete()
     current_app.db.session.commit()
     return jsonify('Deletado!!!!')
 
 
-@bp_users.route('/modificar/<identificador>', methods=['update'])
-def modificar(identificador):
+@bp_users.route('/<int:id>', methods=['update'])
+def update(identificador):
     bs = UserSchema()
     query = User.query.filter(User.id == identificador)
     query.update(request.json)
@@ -30,8 +30,8 @@ def modificar(identificador):
     return bs.jsonify(query.first())
 
 
-@bp_users.route('/cadastrar', methods=['post'])
-def cadastrar():
+@bp_users.route('/', methods=['post'])
+def create():
     bs = UserSchema()
     user, error = bs.load(request.json)
 

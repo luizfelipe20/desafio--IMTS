@@ -1,6 +1,6 @@
 from json import loads
 from unittest import TestCase
-from app import create_app
+from server import create_app
 from flask import url_for
 
 
@@ -23,10 +23,16 @@ class TestFlaskBase(TestCase):
         self.app.db.drop_all()
 
     def create_user(self):
-        self.client.post(url_for('user.register'), json=self.user)
+        self.client.post(
+            url_for('user.create'), 
+            json=self.user
+        )
 
     def create_token(self):
-        login = self.client.post(url_for('login.login'), json=self.user)
+        login = self.client.post(
+            url_for('login.login'), 
+            json=self.user
+        )
         return {
             'Authorization':
                 'Bearer ' + loads(login.data.decode())['acess_token']

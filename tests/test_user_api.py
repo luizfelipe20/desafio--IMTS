@@ -13,7 +13,10 @@ class TestUserBP(TestFlaskBase):
             'id': '1',
             'username': 'test'
         }
-        response = self.client.post(url_for('user.register'), json=user)
+        response = self.client.post(
+            url_for('user.create'), 
+            json=user
+        )
 
         self.assertEqual(response.status_code, 201)
         self.assertEqual(response.json['username'], esperado['username'])
@@ -23,9 +26,14 @@ class TestUserBP(TestFlaskBase):
             'username': 'test',
         }
 
-        esperado = {'password': ['Missing data for required field.']}
+        esperado = {
+            'password': ['Missing data for required field.']
+        }
 
-        response = self.client.post(url_for('user.register'), json=user)
+        response = self.client.post(
+            url_for('user.create'), 
+            json=user
+        )
         self.assertEqual(response.status_code, 401)
 
         self.assertEqual(response.json, esperado)

@@ -1,8 +1,8 @@
 from datetime import timedelta
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import create_access_token, create_refresh_token
-from .model import User
-from .serealizer import UserSchema
+from app.models import User
+from app.serealizer import UserSchema
 
 bp_login = Blueprint('login', __name__)
 
@@ -30,5 +30,5 @@ def login():
         }), 200
 
     return jsonify({
-        'message': 'Deu ruim, credenciais invalidas'
+        'message': 'As crendencias informadas não são válidas.!'
     }), 401
