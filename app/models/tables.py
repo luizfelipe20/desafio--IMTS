@@ -28,11 +28,10 @@ class User(db.Model):
 	created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
 	def gen_hash(self):
-        self.password = pbkdf2_sha256.hash(self.password)
+		self.password = pbkdf2_sha256.hash(self.password)
 
-    def verify_password(self, password):
-        return pbkdf2_sha256.verify(password, self.password)
-
+	def verify_password(self, password):
+		return pbkdf2_sha256.verify(password, self.password)
 
 	def __repr__(self):
 		return "{}".format(self.id, self.username)

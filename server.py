@@ -19,6 +19,8 @@ def create_app():
 	#confguracoes do banco postgre
 	app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = config_database.SQLALCHEMY_TRACK_MODIFICATIONS
 	app.config["SQLALCHEMY_DATABASE_URI"] = config_database.SQLALCHEMY_DATABASE_URI 
+	app.config['JWT_SECRET_KEY'] = 'teste imst crl dev'
+
 	
 
 	config_db.configure(app)
