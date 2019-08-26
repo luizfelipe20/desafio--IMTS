@@ -1,6 +1,6 @@
 from marshmallow import fields, validates, ValidationError, post_load
 from flask_marshmallow import Marshmallow
-from app.models.tables import User, Event
+from app.models.tables import User, Event, UserEvent
 
 ma = Marshmallow()
 
@@ -25,3 +25,11 @@ class UserSchema(ma.ModelSchema):
 
     username = fields.Str(required=True)
     password = fields.Str(required=True)
+
+
+class UserEventSchema(ma.ModelSchema):
+    class Meta:
+        model = UserEvent
+
+    user_id = fields.Integer(required=True)
+    event_id = fields.Integer(required=True)

@@ -6,8 +6,10 @@ from flask_migrate import Migrate
 from flask_cors import CORS
 from app import config_database
 from app.controllers.users import bp_users
+
 from app.controllers.login import bp_login
 from app.controllers.events import bp_events
+from app.controllers.user_event import bp_user_event
 
 
 def create_app():
@@ -34,4 +36,5 @@ def create_app():
 	app.register_blueprint(bp_users)
 	app.register_blueprint(bp_login)
 	app.register_blueprint(bp_events)
+	app.register_blueprint(bp_user_event)
 	return app

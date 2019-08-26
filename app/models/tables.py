@@ -69,3 +69,17 @@ class Event(db.Model):
 	def __repr__(self):
 		return "{} {}".format(self.id, self.title)
 
+
+class UserEvent(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+	user = db.relationship('User', foreign_keys=user_id)
+	event_id = db.Column(db.Integer, db.ForeignKey('event.id'))
+	event = db.relationship('Event', foreign_keys=event_id)
+	
+	def __init__(self, user_id, event_id):
+		self.user_id = user_id 
+		self.event_id = event_id
+
+	def __repr__(self):
+		return "{}".format(self.id)	
