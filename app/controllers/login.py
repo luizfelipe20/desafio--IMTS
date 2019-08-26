@@ -9,10 +9,15 @@ bp_login = Blueprint('login', __name__)
 
 @bp_login.route('/login', methods=['POST'])
 def login():
-    user = User(**request.json)
+    username = request.json["username"]
+    password = request.json["password"]
+    
+    print("username", username)
 
-    if error:
-        return jsonify(error), 401
+    user = User(username, password)
+
+    # if error:
+    #     return jsonify(error), 401
 
     user = User.query.filter_by(username=user.username).first()
 
