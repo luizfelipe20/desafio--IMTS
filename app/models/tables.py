@@ -16,8 +16,6 @@ def configure(app):
 
 #  nome, username, password, telefone, aniversário e e-mail.
 class User(db.Model):
-	__tablename__ = "users"
-
 	id = db.Column(db.String(), nullable=False, default=uuid.uuid4().hex, primary_key=True)
 	username = db.Column(db.String, unique=True)
 	password = db.Column(db.String, nullable=False)
@@ -39,9 +37,6 @@ class User(db.Model):
 
 # título, descrição, data início, data fim, data início inscrições, data fim inscrições
 class Event(db.Model):
-	__tablename__ = "events"		
-
-
 	id = db.Column(db.String(), nullable=False, default=uuid.uuid4().hex, primary_key=True)
 	title = db.Column(db.String)
 	description = db.Column(db.Text)
@@ -49,7 +44,7 @@ class Event(db.Model):
 	end_date = db.Column(db.DateTime, nullable=False)
 	start_date_subscriptions = db.Column(db.DateTime, nullable=False)
 	end_date_subscriptions = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-	user_id = db.Column(db.String, db.ForeignKey('users.id'))
+	user_id = db.Column(db.String, db.ForeignKey('user.id'))
 	user = db.relationship('User', foreign_keys=user_id)
 	created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
