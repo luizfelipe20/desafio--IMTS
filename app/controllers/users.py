@@ -20,7 +20,9 @@ def delete(id):
     if user_exists: 
         User.query.filter(User.id == id).delete()
         current_app.db.session.commit()
-        return jsonify('Deletado!!!!')
+        return jsonify({
+            'message': 'Removido com sucesso!.'
+        }), 200
     else:
         return jsonify({
             'message': 'Registro não encontrado!.'
@@ -46,6 +48,10 @@ def create():
     user_schema = UserSchema()
     username = request.json["username"]
     password = request.json["password"]
+    name = request.json["name"]
+    email = request.json["email"]
+    phone = request.json["phone"]
+    birthday = request.json["birthday"]
     
     user_exists = User.query.filter_by(username=username).first()
     
@@ -53,7 +59,7 @@ def create():
     # print("user_exists", user_exists)
 
     if not user_exists:
-        new_user = User(username, password)
+        new_user = User(username, password, name, email, phone, birthday)
     else:
         return jsonify({
             'message': 'Este usuário já foi registrado!.'

@@ -20,11 +20,11 @@ class User(db.Model):
 	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 	username = db.Column(db.String, unique=True)
 	password = db.Column(db.String, nullable=False)
-	# name = db.Column(db.String)
-	# email = db.Column(db.String, unique=True)
-	# phone = db.Column(JSON)
-	# birthday = db.Column(db.DateTime, nullable=False)
-	# created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+	name = db.Column(db.String)
+	email = db.Column(db.String, unique=True)
+	phone = db.Column(JSON)
+	birthday = db.Column(db.DateTime, nullable=False)
+	created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
 	# def gen_hash(self):
 	# 	self.password = pbkdf2_sha256.hash(self.password)
@@ -32,12 +32,16 @@ class User(db.Model):
 	# def verify_password(self, password):
 	# 	return pbkdf2_sha256.verify(password, self.password)
 
-	def __init__(self, username, password):
+	def __init__(self, username, password, name, email, phone, birthday):
 		self.username = username 
 		self.password = password
+		self.name = name
+		self.email = email
+		self.phone = phone
+		self.birthday = birthday
 
 	def __repr__(self):
-		return "{}".format(self.id, self.username)
+		return "{} {}".format(self.id, self.username)
 
 
 # título, descrição, data início, data fim, data início inscrições, data fim inscrições
@@ -53,6 +57,15 @@ class Event(db.Model):
 	user = db.relationship('User', foreign_keys=user_id)
 	created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
+	def __init__(self, title, description, start_date, end_date, start_date_subscriptions, end_date_subscriptions, user_id):
+		self.title = title 
+		self.description = description
+		self.start_date = start_date
+		self.end_date = end_date
+		self.start_date_subscriptions = start_date_subscriptions
+		self.end_date_subscriptions = end_date_subscriptions
+		self.user_id = user_id
+
 	def __repr__(self):
-		return "{}".format(self.id, self.title, self.user)
+		return "{} {}".format(self.id, self.title)
 
